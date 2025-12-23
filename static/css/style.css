@@ -1,0 +1,523 @@
+/**
+ * Main Stylesheet for Lottery Website
+ * Responsive 3-column layout with CSS Grid & Flexbox
+ */
+
+/* ==================== BASE STYLES ==================== */
+* {
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    margin: 0;
+    padding-bottom: 0;
+}
+
+/* ==================== TOP BAR ==================== */
+.top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+
+.top-bar-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.top-bar h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+}
+
+.date-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.date-selector input {
+    padding: 10px 15px;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.date-selector button {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.date-selector button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* ==================== LAYOUT GRID ==================== */
+.page-layout {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 250px 1fr 250px;
+    grid-template-areas: "left-sidebar main-content right-sidebar";
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.left-sidebar {
+    grid-area: left-sidebar;
+}
+
+.main-content {
+    grid-area: main-content;
+    min-height: 500px;
+}
+
+.right-sidebar {
+    grid-area: right-sidebar;
+}
+
+/* ==================== SIDEBARS ==================== */
+.sidebar {
+    position: sticky;
+    top: 110px;
+    align-self: start;
+}
+
+.sidebar-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.6s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sidebar-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0 0 15px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.sidebar-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-links li {
+    margin-bottom: 10px;
+}
+
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8e8e8 100%);
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.sidebar-links a:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    transform: translateX(5px);
+}
+
+.sidebar-links .icon {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+/* Stats Box & Lucky Numbers */
+.stats-box {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.stats-box .number {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.stats-box .label {
+    font-size: 0.9rem;
+    opacity: 0.95;
+    margin-top: 5px;
+}
+
+.lucky-numbers-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.lucky-number-item {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lucky-number-item .number {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.lucky-number-item .label {
+    font-size: 0.85rem;
+    opacity: 0.95;
+}
+
+/* ==================== LOTTERY RESULTS ==================== */
+.region-section {
+    margin-bottom: 40px;
+}
+
+.region-header {
+    position: sticky;
+    top: 90px;
+    z-index: 100;
+    background: white;
+    border-radius: 15px;
+    padding: 20px 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.region-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.region-icon {
+    font-size: 2.5rem;
+}
+
+.region-nam .region-header {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+.region-trung .region-header {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+}
+
+.region-bac .region-header {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    color: white;
+}
+
+.provinces-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.province-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.province-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+.province-card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.province-card-header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+}
+
+.province-code {
+    font-size: 0.9rem;
+    opacity: 0.95;
+}
+
+.province-card-body {
+    padding: 20px;
+}
+
+.prize-row {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    transition: all 0.2s;
+}
+
+.prize-row:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.prize-special {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    font-weight: 700;
+}
+
+.prize-first {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    font-weight: 700;
+}
+
+.prize-label {
+    font-weight: 600;
+    font-size: 1rem;
+    min-width: 100px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    text-align: center;
+}
+
+.prize-numbers {
+    flex: 1;
+    font-size: 1.15rem;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.no-data {
+    background: white;
+    border-radius: 20px;
+    padding: 60px 40px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    grid-column: 1 / -1;
+}
+
+.no-data .icon {
+    font-size: 5rem;
+    margin-bottom: 20px;
+}
+
+/* ==================== FOOTER ==================== */
+.site-footer {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    padding: 40px 0 20px 0;
+    margin-top: 60px;
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-section h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #a8e6cf;
+}
+
+.footer-section p,
+.footer-section ul {
+    color: #ecf0f1;
+    line-height: 1.8;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-section a {
+    color: #ecf0f1;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: #a8e6cf;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+    text-align: center;
+    color: #bdc3c7;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+
+/* Tablets - Hide sidebars, show main content */
+@media (max-width: 1024px) {
+    .page-layout {
+        grid-template-columns: 1fr;
+        grid-template-areas: "main-content";
+    }
+
+    .sidebar {
+        display: none;
+    }
+}
+
+/* Mobile Phones */
+@media (max-width: 768px) {
+    .top-bar-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .top-bar h1 {
+        font-size: 1.5rem;
+    }
+
+    .region-header {
+        top: 140px;
+    }
+
+    .region-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .provinces-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .prize-label {
+        min-width: 80px;
+        font-size: 0.9rem;
+    }
+
+    .prize-numbers {
+        font-size: 1rem;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Very Small Screens */
+@media (max-width: 480px) {
+    .page-layout {
+        padding: 0 10px;
+    }
+
+    .top-bar-content {
+        padding: 0 10px;
+    }
+
+    .sidebar-card,
+    .province-card {
+        border-radius: 10px;
+    }
+
+    .date-selector {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .date-selector input,
+    .date-selector button {
+        width: 100%;
+    }
+}

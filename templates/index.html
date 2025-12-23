@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xổ Số 3 Miền - {{ display_date }}</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <h1>🎰 Xổ Số 3 Miền</h1>
+            <form class="date-selector" method="GET" action="/">
+                <label for="date" style="font-weight: 600; color: #333;">📅 Chọn ngày:</label>
+                <input type="date" id="date" name="date" value="{{ date }}" max="{{ date }}" required>
+                <button type="submit">Xem</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Layout with Sidebars -->
+    <div class="page-layout">
+        <!-- Left Sidebar (Rendered by JS) -->
+        <aside class="sidebar left-sidebar" id="left-sidebar"></aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            {% if has_data %}
+            <!-- Miền Nam -->
+            {% if all_data['mien-nam'] %}
+            <div class="region-section region-nam" id="mien-nam">
+                <div class="region-header">
+                    <h2>
+                        <span class="region-icon">🌴</span>
+                        Miền Nam
+                    </h2>
+                </div>
+                <div class="provinces-grid">
+                    {% for province in all_data['mien-nam'] %}
+                    {% include 'province_card.html' %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Miền Trung -->
+            {% if all_data['mien-trung'] %}
+            <div class="region-section region-trung" id="mien-trung">
+                <div class="region-header">
+                    <h2>
+                        <span class="region-icon">🏖️</span>
+                        Miền Trung
+                    </h2>
+                </div>
+                <div class="provinces-grid">
+                    {% for province in all_data['mien-trung'] %}
+                    {% include 'province_card.html' %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Miền Bắc -->
+            {% if all_data['mien-bac'] %}
+            <div class="region-section region-bac" id="mien-bac">
+                <div class="region-header">
+                    <h2>
+                        <span class="region-icon">🏛️</span>
+                        Miền Bắc
+                    </h2>
+                </div>
+                <div class="provinces-grid">
+                    {% for province in all_data['mien-bac'] %}
+                    {% include 'province_card.html' %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% else %}
+            <div class="no-data">
+                <div class="icon">📊</div>
+                <h2>Không có dữ liệu</h2>
+                <p>Không thể lấy kết quả cho ngày <strong>{{ display_date }}</strong></p>
+                <p>Vui lòng chọn ngày khác hoặc thử lại sau.</p>
+            </div>
+            {% endif %}
+        </main>
+
+        <!-- Right Sidebar (Rendered by JS) -->
+        <aside class="sidebar right-sidebar" id="right-sidebar">
+            <!-- Stats Box - Server-side rendered -->
+            <div class="sidebar-card">
+                <h3>📊 Thống kê</h3>
+                <div class="stats-box">
+                    <div class="number">{{ date }}</div>
+                    <div class="label">Ngày hiển thị</div>
+                </div>
+                {% if has_data %}
+                <div class="stats-box">
+                    <div class="number">
+                        {{ (all_data['mien-nam']|length) + (all_data['mien-trung']|length) +
+                        (all_data['mien-bac']|length) }}
+                    </div>
+                    <div class="label">Đài phát hành</div>
+                </div>
+                {% endif %}
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer (Rendered by JS) -->
+    <footer class="site-footer">
+        <div class="footer-content" id="footer-content"></div>
+        <div class="footer-bottom" id="footer-bottom"></div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Config & Main JS -->
+    <script src="{{ url_for('static', filename='js/config.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>

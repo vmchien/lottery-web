@@ -1,0 +1,62 @@
+<div class="province-card">
+    <!-- Province Header -->
+    <div class="province-card-header">
+        <h3>{{ province.province }}</h3>
+        {% if province.code %}
+        <div class="province-code">{{ province.code }}</div>
+        {% endif %}
+    </div>
+
+    <!-- Province Body -->
+    <div class="province-card-body">
+        {% if province.prizes %}
+        <!-- Special Prize (Giải ĐB) -->
+        {% if 'Giải ĐB' in province.prizes %}
+        <div class="prize-row prize-special">
+            <div class="prize-label">🏆 Giải ĐB</div>
+            <div class="prize-numbers">
+                {{ province.prizes['Giải ĐB'] }}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- First Prize -->
+        {% if 'Giải nhất' in province.prizes %}
+        <div class="prize-row prize-first">
+            <div class="prize-label">🥇 Giải 1</div>
+            <div class="prize-numbers">
+                {{ province.prizes['Giải nhất'] }}
+            </div>
+        </div>
+        {% elif 'Giải 1' in province.prizes %}
+        <div class="prize-row prize-first">
+            <div class="prize-label">🥇 Giải 1</div>
+            <div class="prize-numbers">
+                {{ province.prizes['Giải 1'] }}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Other Prizes -->
+        {% for prize_name, numbers in province.prizes.items() %}
+        {% if prize_name not in ['Giải ĐB', 'Giải nhất', 'Giải 1'] %}
+        <div class="prize-row">
+            <div class="prize-label">
+                {% if prize_name in ['Giải nhì', 'Giải 2'] %}🥈
+                {% elif prize_name in ['Giải ba', 'Giải 3'] %}🥉
+                {% else %}🎯{% endif %}
+                {{ prize_name }}
+            </div>
+            <div class="prize-numbers">
+                {{ numbers }}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% else %}
+        <div class="text-center text-muted">
+            <p>Không có dữ liệu</p>
+        </div>
+        {% endif %}
+    </div>
+</div>

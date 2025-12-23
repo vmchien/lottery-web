@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xổ Số 3 Miền - Chọn Kết Quả</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .selection-container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .selection-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .card-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.95;
+            font-size: 1.1rem;
+        }
+
+        .card-body {
+            padding: 40px 30px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .region-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .region-option {
+            position: relative;
+        }
+
+        .region-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .region-label {
+            display: block;
+            padding: 20px 15px;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .region-option input[type="radio"]:checked+.region-label {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .region-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .region-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .date-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            margin-bottom: 30px;
+        }
+
+        .date-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+            color: white;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 576px) {
+            .region-selector {
+                grid-template-columns: 1fr;
+            }
+
+            .card-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="selection-container">
+        <div class="selection-card">
+            <!-- Header -->
+            <div class="card-header">
+                <h1>🎰 Xổ Số 3 Miền</h1>
+                <p>Chọn miền và ngày để xem kết quả</p>
+            </div>
+
+            <!-- Body -->
+            <div class="card-body">
+                <form action="/results" method="GET">
+                    <!-- Region Selection -->
+                    <label class="form-label">Chọn Miền:</label>
+                    <div class="region-selector">
+                        <div class="region-option">
+                            <input type="radio" id="mien-bac" name="region" value="mien-bac" checked>
+                            <label for="mien-bac" class="region-label">
+                                <span class="region-icon">🏛️</span>
+                                Miền Bắc
+                            </label>
+                        </div>
+                        <div class="region-option">
+                            <input type="radio" id="mien-trung" name="region" value="mien-trung">
+                            <label for="mien-trung" class="region-label">
+                                <span class="region-icon">🏖️</span>
+                                Miền Trung
+                            </label>
+                        </div>
+                        <div class="region-option">
+                            <input type="radio" id="mien-nam" name="region" value="mien-nam">
+                            <label for="mien-nam" class="region-label">
+                                <span class="region-icon">🌴</span>
+                                Miền Nam
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Date Selection -->
+                    <label class="form-label" for="date">Chọn Ngày:</label>
+                    <input type="date" id="date" name="date" class="date-input" value="{{ default_date }}"
+                        max="{{ default_date }}" required>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-btn">
+                        🔍 Xem Kết Quả
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer Note -->
+        <div class="footer-note">
+            <p>Nguồn dữ liệu: <strong>Minh Ngọc</strong></p>
+            <p style="font-size: 0.85rem; opacity: 0.8;">Kết quả chỉ mang tính chất tham khảo</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

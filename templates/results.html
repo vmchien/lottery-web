@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết Quả {{ region_name }} - {{ display_date }}</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .results-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0 0 10px 0;
+        }
+
+        .page-header .meta {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+
+        .province-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            margin-bottom: 30px;
+            animation: slideIn 0.6s ease-in;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .province-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+
+        .province-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .province-code {
+            font-size: 1rem;
+            margin-top: 5px;
+            opacity: 0.95;
+        }
+
+        .province-body {
+            padding: 30px;
+        }
+
+        .prize-row {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .prize-row:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .prize-special {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .prize-first {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .prize-label {
+            font-weight: 700;
+            font-size: 1.1rem;
+            min-width: 120px;
+            text-align: center;
+            padding: 8px 15px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .prize-numbers {
+            flex: 1;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .error-message {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .error-message .icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+
+        .error-message h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .error-message p {
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .province-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .prize-label {
+                min-width: 100px;
+                font-size: 1rem;
+            }
+
+            .prize-numbers {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="results-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>🎰 Kết Quả {{ region_name }}</h1>
+            <div class="meta">
+                📅 Ngày: <strong>{{ display_date }}</strong>
+            </div>
+            <a href="/" class="back-btn">
+                ← Chọn miền & ngày khác
+            </a>
+        </div>
+
+        {% if data %}
+        <!-- Province Cards -->
+        <div class="row">
+            {% for province in data %}
+            <div class="col-md-{{ 12 if region == 'mien-bac' else 6 }}">
+                <div class="province-card">
+                    <!-- Province Header -->
+                    <div class="province-header">
+                        <h2>{{ province.province }}</h2>
+                        {% if province.code %}
+                        <div class="province-code">{{ province.code }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Province Body -->
+                    <div class="province-body">
+                        {% if province.prizes %}
+                        <!-- Special Prize (Giải ĐB) -->
+                        {% if 'Giải ĐB' in province.prizes %}
+                        <div class="prize-row prize-special">
+                            <div class="prize-label">🏆 Giải Đặc Biệt</div>
+                            <div class="prize-numbers">
+                                {{ province.prizes['Giải ĐB'] }}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- First Prize (Giải nhất or Giải 1) -->
+                        {% if 'Giải nhất' in province.prizes %}
+                        <div class="prize-row prize-first">
+                            <div class="prize-label">🥇 Giải Nhất</div>
+                            <div class="prize-numbers">
+                                {{ province.prizes['Giải nhất'] }}
+                            </div>
+                        </div>
+                        {% elif 'Giải 1' in province.prizes %}
+                        <div class="prize-row prize-first">
+                            <div class="prize-label">🥇 Giải Nhất</div>
+                            <div class="prize-numbers">
+                                {{ province.prizes['Giải 1'] }}
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Other Prizes -->
+                        {% for prize_name, numbers in province.prizes.items() %}
+                        {% if prize_name not in ['Giải ĐB', 'Giải nhất', 'Giải 1'] %}
+                        <div class="prize-row">
+                            <div class="prize-label">
+                                {% if prize_name == 'Giải nhì' or prize_name == 'Giải 2' %}🥈
+                                {% elif prize_name == 'Giải ba' or prize_name == 'Giải 3' %}🥉
+                                {% else %}🎯{% endif %}
+                                {{ prize_name }}
+                            </div>
+                            <div class="prize-numbers">
+                                {{ numbers }}
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% else %}
+                        <div class="text-center text-muted">
+                            <p>Không có dữ liệu giải thưởng</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <!-- Error State -->
+        <div class="error-message">
+            <div class="icon">⚠️</div>
+            <h3>Chưa có kết quả</h3>
+            <p>Không thể lấy dữ liệu cho ngày <strong>{{ display_date }}</strong>.</p>
+            <p>Vui lòng chọn ngày khác hoặc thử lại sau.</p>
+            <a href="/" class="back-btn" style="margin-top: 20px;">
+                ← Quay lại chọn ngày
+            </a>
+        </div>
+        {% endif %}
+
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 40px; color: white; opacity: 0.9;">
+            <p>Nguồn dữ liệu: <a href="https://www.minhngoc.net.vn" target="_blank"
+                    style="color: white; text-decoration: none; font-weight: 600;">Minh Ngọc</a></p>
+            <p style="font-size: 0.9rem; opacity: 0.8;">Kết quả chỉ mang tính chất tham khảo</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
